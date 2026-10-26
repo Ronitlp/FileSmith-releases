@@ -284,7 +284,8 @@ kbd {
 .glass-looks .g-smoke { --tint: rgba(18, 18, 24, .55); } .glass-looks .g-glass { --tint: rgba(255, 255, 255, .14); }
 .glass-looks .g-frost { --tint: rgba(255, 255, 255, .55); color: #111; } .glass-looks .g-aqua { --tint: rgba(143, 230, 255, .5); color: #06323f; }
 .glass-looks .g-rose { --tint: rgba(255, 181, 210, .55); color: #4a0f28; }
-.glass-looks button[aria-pressed="true"] { background: #2a1450 url("../img/stage.webp") center / 260px; color: inherit; outline: 3px solid var(--pink); outline-offset: 2px; }
+.glass-looks button[aria-pressed="true"] { background: #2a1450 url("../img/stage.webp") center / 260px; color: inherit; transform: translate(2px, 2px); box-shadow: inset 3px 3px 0 rgba(0, 0, 0, .55), inset -1px -1px 0 rgba(255, 255, 255, .25); filter: brightness(.86); }
+.glass-looks button[aria-pressed="true"]:hover { transform: translate(2px, 2px); box-shadow: inset 3px 3px 0 rgba(0, 0, 0, .55), inset -1px -1px 0 rgba(255, 255, 255, .25); }
 .glass-looks .g-smoke[aria-pressed="true"], .glass-looks .g-glass[aria-pressed="true"] { color: #fff; }
 .swatches { display: flex; flex-wrap: wrap; gap: 9px; }
 .swatches button {
@@ -292,7 +293,7 @@ kbd {
   background: conic-gradient(var(--a) 0 50%, var(--b) 0 100%); transition: transform .2s var(--spring);
 }
 .swatches button:hover { transform: scale(1.15) rotate(-10deg); }
-.swatches button[aria-pressed="true"] { outline: 3px solid var(--pink); outline-offset: 2px; }
+.swatches button[aria-pressed="true"] { transform: translate(2px, 2px) scale(.94); box-shadow: inset 3px 3px 0 rgba(0, 0, 0, .5); filter: brightness(.88); }
 .swatches button[data-look] { flex: none; }
 .hint-list { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; font-size: 15.5px; color: var(--text-2); }
 .hint-list li { display: flex; gap: 10px; align-items: baseline; }
