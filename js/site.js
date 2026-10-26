@@ -257,9 +257,9 @@
     const fromEvent = (e) => { const r = cmp.getBoundingClientRect(); set(((e.clientX - r.left) / r.width) * 100); };
     let dragging = false;
     cmp.addEventListener("pointerdown", (e) => { dragging = true; cmp.setPointerCapture(e.pointerId); fromEvent(e); });
-    cmp.addEventListener("pointermove", (e) => { if (dragging || finePointer) fromEvent(e); });
+    cmp.addEventListener("pointermove", (e) => { if (dragging) fromEvent(e); });   // moves only while dragged
     cmp.addEventListener("pointerup", () => { dragging = false; });
-    cmp.addEventListener("pointerleave", () => { if (!dragging && finePointer) set(50); });
+    cmp.addEventListener("pointercancel", () => { dragging = false; });
     cmp.addEventListener("keydown", (e) => {
       const now = +cmp.getAttribute("aria-valuenow");
       if (e.key === "ArrowLeft") { set(now - 5); e.preventDefault(); }
