@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "channel": "stable",
+  "version": "1.9.0",
+  "released": "2026-10-26",
+  "min_supported": "1.5.0",
+  "notes": [
+    "FileSmith now updates itself: it checks for new versions once a day, shows what's new, and installs with one click (or automatically, if you turn that on in Settings).",
+    "Updates never interrupt your work: FileSmith waits for conversions and exports to finish and asks before closing any open window.",
+    "Every update is verified before it runs, with a signature only FileSmith's publisher can make."
+  ],
+  "notes_url": "https://ronitlp.github.io/FileSmith-releases/changelog.html#v1.9.0",
+  "installer": {
+    "url": "https://github.com/Ronitlp/FileSmith-releases/releases/download/v1.9.0/FileSmith-Setup-1.9.0.exe",
+    "size": 122010028,
+    "sha256": "9248b2c87d19db0feaf6d5806fd0d1c2001275ac0e7af374cadb0f1b89307b05",
+    "signed": false,
+    "publisher": "Ronit Chintrate"
+  },
+  "requires": {
+    "windows": "10.0.17763",
+    "arch": "x64"
+  }
+}

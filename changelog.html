@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FileSmith changelog</title>
+<meta name="description" content="Every FileSmith release: what's new and what's fixed.">
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fff4e4" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="css/site.css?v=23">
+<script>try { var t = localStorage.getItem("fs-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary btn-sm" data-dl href="index.html#download"><svg><use href="#i-down"/></svg>Download</a>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap">
+    <span class="eyebrow" style="--c:var(--lime)">Changelog</span>
+    <h1>What's new</h1>
+    <p class="lead">Every release, newest first. Installing a newer version over an older one keeps your settings, your startup entry and your right-click entry.</p>
+
+    <article class="card release" id="v1.9.0">
+      <header><h2>1.9.0</h2><span class="badge">Latest</span><time datetime="2026-10-26">26 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li><b>FileSmith updates itself.</b> It checks for new versions once a day, shows what's new, and installs with one click, or automatically if you turn that on in Settings.</li>
+          <li>Updates never interrupt your work: FileSmith waits for conversions and exports to finish and asks before closing any open window.</li>
+          <li>Every update is verified before it runs, with a signature only FileSmith's publisher can make.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.8.5">
+      <header><h2>1.8.5</h2><time datetime="2026-10-25">25 October 2026</time></header>
+      <div class="prose">
+        <h3>New</h3>
+        <ul>
+          <li><b>Timeline video editor.</b> Every clip on one timeline, playback with sound, voice and music tracks with waveforms, split, trim and drag, speed, crop, fades, and export as a video, a GIF or a frame.</li>
+          <li><b>Pro PDF tools.</b> Organize pages, Merge, page numbers, watermark, and adding or removing a password.</li>
+          <li>Editor and tool windows are proper app windows: a taskbar button, Alt+Tab, minimize from the taskbar, and the file name in the title.</li>
+        </ul>
+        <h3>Fixed since 1.8.0</h3>
+        <ul>
+          <li>The editor's picture could freeze on screen, with buttons not where they looked.</li>
+          <li>Space and the arrow keys stopped working after clicking the timeline.</li>
+          <li>Playback could get stuck, or play sound without a picture.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.8.4">
+      <header><h2>1.8.1 – 1.8.4</h2><time datetime="2026-10-25">25 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li>The editor stays smooth on long, heavy videos (an hour of 1080p60, or 1920×1200 60 fps recordings): sound on its own thread, thumbnails on demand, cached waveforms, and hardware decoding for the preview.</li>
+          <li>Playback can't get stuck. If the sound device disappears or changes, playback carries on silently instead of stopping, and anything that fails is shown and logged.</li>
+          <li>The editor opens as a solid window that fades in without moving, so what you see always matches where the buttons are.</li>
+          <li>If FileSmith ever freezes, it writes a report you can send in.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.8.0">
+      <header><h2>1.8.0</h2><time datetime="2026-10-25">25 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li>The timeline editor: clips side by side with thumbnails, each clip's sound as a waveform, extra voice and music tracks, an inspector, undo and redo for everything, and export.</li>
+          <li>Playback with sound across every clip, with picture and sound in sync.</li>
+          <li>One <b>Edit video</b> segment on the wheel replaces separate Trim, Make GIF and Edit video entries.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.7.0">
+      <header><h2>1.7.0</h2><time datetime="2026-10-25">25 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li><b>Pro PDF tool windows:</b> Organize pages, Merge, page numbers, watermark, and add or remove a password, each with a live preview of the real page.</li>
+          <li><b>FileSmith's own PDF → Word engine:</b> fonts and styles, columns, headings, lists, headers and footers with page numbers, ruled tables, links, text wrapping around pictures, and pictures at their original quality.</li>
+          <li><b>DOCX + OCR:</b> scanned pages become editable text, fully offline. It handles busy scans like ID cards and hall tickets.</li>
+          <li>The video editor window: trim, GIF, frame, crop and rotate, speed, sound, and join clips.</li>
+          <li>The DOCX group on the Convert page sits at the top of the wheel, so its fan opens upward.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.5.0">
+      <header><h2>1.5.0</h2><time datetime="2026-10-22">22 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li><b>FileWheel is now FileSmith.</b> Installing over FileWheel upgrades it in place and keeps your settings.</li>
+          <li><b>Split window:</b> each page, every N pages, equal parts, your own cuts, picked pages (into several PDFs), or by chapter.</li>
+          <li><b>Slides → PDF and images</b>, using PowerPoint if it's installed, otherwise LibreOffice.</li>
+          <li><b>Smart Remove BG:</b> ink is lifted cleanly off paper, and photos go to the offline AI model.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.4.0">
+      <header><h2>1.4.0</h2><time datetime="2026-10-21">21 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li><b>Tool groups that fan out:</b> drag over a group and its tools pop out as pills around the wheel.</li>
+          <li><b>Remove BG</b>, running offline on your PC.</li>
+          <li><b>Zip and extract:</b> zip files and whole folders, and extract archives safely.</li>
+          <li>The glass looks open faster.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card release" id="v1.3.3">
+      <header><h2>1.3.3</h2><time datetime="2026-10-21">21 October 2026</time></header>
+      <div class="prose">
+        <ul>
+          <li>The first public build: drag and tap Shift to open the wheel; right-click → Open with FileSmith; conversions for images, PDFs, documents, video and audio; crop, resize, Add BG and more; 12 colour themes, 5 glass looks and custom colours.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="index.html"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <nav aria-label="Footer"><a href="changelog.html">Changelog</a><a href="privacy.html">Privacy</a><a href="license.html">License</a><a href="license.html#third-party">Third-party notices</a></nav>
+    <span>© 2026 Ronit Chintrate</span>
+  </div>
+</footer>
+<script src="js/site.js?v=23" defer></script>
+</body>
+</html>

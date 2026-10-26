@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FileSmith license</title>
+<meta name="description" content="FileSmith's license and the third-party components it includes.">
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fff4e4" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="css/site.css?v=23">
+<script>try { var t = localStorage.getItem("fs-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="index.html"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary btn-sm" data-dl href="index.html#download"><svg><use href="#i-down"/></svg>Download</a>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap">
+    <span class="eyebrow" style="--c:var(--yellow)">License</span>
+    <h1>The fine print.</h1>
+    <p class="lead">FileSmith is free to download and use on your own computers. Its code and design are not open source.</p>
+    <div class="prose">
+      <h2>FileSmith license</h2>
+      <pre>FileSmith
+Copyright (c) 2026 Ronit Chintrate. All rights reserved.
+
+This software, including its source code, user interface, design, icons and
+documentation (the &quot;Software&quot;), is owned by the copyright holder and is
+protected by copyright law.
+
+No license to the Software is granted. Without the prior written permission of
+the copyright holder, you may not:
+
+  - copy, reproduce, publish or redistribute the Software, in whole or in part;
+  - modify, adapt or translate it, or create works based on it;
+  - sell, rent, lease, sublicense or otherwise commercialise it;
+  - reverse engineer, decompile or disassemble it, except where applicable law
+    expressly allows this.
+
+If you received FileSmith from the copyright holder through its official
+installer, you may install and use that copy on your own computers for your
+own purposes. This permission ends automatically if you break these terms.
+
+Being able to see the source code, for example on GitHub, does not give you
+any of the rights listed above.
+
+&quot;FileSmith&quot; and the FileSmith logo are trademarks of the copyright holder. No
+right to use them is granted.
+
+Third-party components bundled with the Software are licensed under their own
+terms, listed in THIRD-PARTY-NOTICES.md. Nothing in this license limits the
+rights those terms give you for those components.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+To ask for permission, contact the copyright holder through
+https://github.com/Ronitlp.
+</pre>
+      <h2 id="third-party">Third-party notices</h2>
+      <p>FileSmith includes these components, each under its own license. Nothing in FileSmith's license limits the rights those licenses give you.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Component</th><th>Used for</th><th>License</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Python</td><td>Runtime</td><td>PSF License</td><td><a href="https://www.python.org">https://www.python.org</a></td></tr>
+          <tr><td>PyInstaller bootloader</td><td>Packaging the app</td><td>GPL-2.0 with the PyInstaller exception (allows bundling into proprietary apps)</td><td><a href="https://pyinstaller.org">https://pyinstaller.org</a></td></tr>
+          <tr><td>Qt / PySide6</td><td>Windows, wheel, all drawing</td><td>LGPL-3.0</td><td><a href="https://www.qt.io">https://www.qt.io</a>, <a href="https://wiki.qt.io/Qt_for_Python">https://wiki.qt.io/Qt_for_Python</a></td></tr>
+          <tr><td>PDFium / pypdfium2</td><td>Drawing PDF pages, reading their text</td><td>PDFium: BSD-3-Clause / Apache-2.0; pypdfium2: Apache-2.0 or BSD-3-Clause</td><td><a href="https://pdfium.googlesource.com/pdfium">https://pdfium.googlesource.com/pdfium</a>, <a href="https://github.com/pypdfium2-team/pypdfium2">https://github.com/pypdfium2-team/pypdfium2</a></td></tr>
+          <tr><td>pypdf</td><td>Splitting, merging, rotating, compressing PDFs</td><td>BSD-3-Clause</td><td><a href="https://github.com/py-pdf/pypdf">https://github.com/py-pdf/pypdf</a></td></tr>
+          <tr><td>cryptography</td><td>Opening PDFs with owner-only encryption</td><td>Apache-2.0 or BSD-3-Clause</td><td><a href="https://cryptography.io">https://cryptography.io</a></td></tr>
+          <tr><td>python-docx</td><td>DOCX files</td><td>MIT</td><td><a href="https://github.com/python-openxml/python-docx">https://github.com/python-openxml/python-docx</a></td></tr>
+          <tr><td>Pillow</td><td>Images</td><td>MIT-CMU (HPND)</td><td><a href="https://python-pillow.org">https://python-pillow.org</a></td></tr>
+          <tr><td>pillow-heif / libheif</td><td>HEIC and AVIF images</td><td>BSD-3-Clause (libheif: LGPL-3.0)</td><td><a href="https://github.com/bigcat88/pillow_heif">https://github.com/bigcat88/pillow_heif</a></td></tr>
+          <tr><td>FFmpeg</td><td>Video and audio (separate program, `ffmpeg.exe`)</td><td>GPL-3.0 (this build enables GPL components)</td><td><a href="https://ffmpeg.org">https://ffmpeg.org</a>, build from <a href="https://www.gyan.dev/ffmpeg/builds/">https://www.gyan.dev/ffmpeg/builds/</a></td></tr>
+          <tr><td>imageio-ffmpeg</td><td>Locating FFmpeg</td><td>BSD-2-Clause</td><td><a href="https://github.com/imageio/imageio-ffmpeg">https://github.com/imageio/imageio-ffmpeg</a></td></tr>
+          <tr><td>ONNX Runtime</td><td>Running the Remove BG and OCR models</td><td>MIT</td><td><a href="https://onnxruntime.ai">https://onnxruntime.ai</a></td></tr>
+          <tr><td>Silueta model (`silueta.onnx`)</td><td>Remove BG for photos</td><td>From the rembg project (MIT)</td><td><a href="https://github.com/danielgatis/rembg">https://github.com/danielgatis/rembg</a></td></tr>
+          <tr><td>PP-OCRv4 models (`models/ocr/det.onnx`, `rec.onnx`)</td><td>Reading the text of scanned pages (PDF → DOCX + OCR)</td><td>Apache-2.0 (PaddleOCR models, ONNX conversion by RapidOCR)</td><td><a href="https://github.com/PaddlePaddle/PaddleOCR">https://github.com/PaddlePaddle/PaddleOCR</a>, <a href="https://github.com/RapidAI/RapidOCR">https://github.com/RapidAI/RapidOCR</a></td></tr>
+          <tr><td>NumPy</td><td>Image maths</td><td>BSD-3-Clause</td><td><a href="https://numpy.org">https://numpy.org</a></td></tr>
+          <tr><td>lxml, fontTools</td><td>Document handling</td><td>BSD-3-Clause, MIT</td><td><a href="https://lxml.de">https://lxml.de</a>, <a href="https://github.com/fonttools/fonttools">https://github.com/fonttools/fonttools</a></td></tr>
+          <tr><td>pywin32</td><td>Windows integration (Word, PowerPoint)</td><td>PSF</td><td><a href="https://github.com/mhammond/pywin32">https://github.com/mhammond/pywin32</a></td></tr>
+        </tbody>
+      </table></div>
+      <p><b>Qt (LGPL-3.0):</b> Qt&#x27;s libraries ship as separate files in FileSmith&#x27;s install folder, so they can be replaced with compatible versions. Qt&#x27;s source is available from <a href="https://download.qt.io">https://download.qt.io</a>.</p>
+      <p><b>FFmpeg (GPL-3.0):</b> <code>ffmpeg.exe</code> is a separate program that FileSmith starts; it isn&#x27;t linked into FileSmith. Its source code is available from <a href="https://ffmpeg.org/download.html">https://ffmpeg.org/download.html</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="index.html"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <nav aria-label="Footer"><a href="changelog.html">Changelog</a><a href="privacy.html">Privacy</a><a href="license.html">License</a><a href="license.html#third-party">Third-party notices</a></nav>
+    <span>© 2026 Ronit Chintrate</span>
+  </div>
+</footer>
+<script src="js/site.js?v=23" defer></script>
+</body>
+</html>

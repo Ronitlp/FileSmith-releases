@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FileSmith: drag, tap Shift, done</title>
+<meta name="description" content="FileSmith is a Windows app that converts and edits files where you drag them. Start dragging any file, tap Shift, and a wheel of formats and tools opens under your cursor. Offline, private, free.">
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fff4e4" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FileSmith: drag, tap Shift, done">
+<meta property="og:description" content="Convert and edit any file right where you drag it. Photos, PDFs, video, audio and documents, all offline on your PC.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/icon-256.png">
+<link rel="preload" as="image" href="media/flow-convert.jpg">
+<link rel="stylesheet" href="css/site.css?v=23">
+<script>
+  // theme before first paint: saved choice, else the system's
+  try { var t = localStorage.getItem("fs-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-win" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5.1 10.4 4v7.2H3zm0 13.8 7.4 1.1v-7.1H3zM11.3 3.9 21 2.5v8.7h-9.7zm0 16.2 9.7 1.4v-8.6h-9.7z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3.5 13.9 9l5.6 1.9-5.6 1.9L12 18.5l-1.9-5.7L4.5 11l5.6-2z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 2.5 4.5 13.5H12l-1 8 8.5-11H12z"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18M3 15h18M8 4.5v15M16 4.5v15"/></g></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 12h1.5M7 8v8M10.5 5v14M14 9v6M17.5 6.5v11M21 12h-1"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3.5 9 4.8-9 4.8-9-4.8z"/><path d="m3 12.5 9 4.8 9-4.8M3 16.6l9 4.8 9-4.8"/></g></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="7" r="2.8"/><circle cx="6" cy="17" r="2.8"/><path d="M8.2 8.6 20 18M8.2 15.4 20 6"/></g></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+  <symbol id="i-gif" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 12.5v-1h2v2.5a1.5 1.5 0 0 1-3 0v-4a1.5 1.5 0 0 1 3 0M13 9v6M16 15V9h2.5M16 12h2" stroke-linecap="round"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></g></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m9 7-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 6.5V5h14v1.5M12 5v14M9.5 19h5"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3.5s6.5 7 6.5 11.2a6.5 6.5 0 0 1-13 0C5.5 10.5 12 3.5 12 3.5z"/></symbol>
+  <symbol id="w-edit" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M15.5 4.5 19.5 8.5 8.5 19.5H4.5v-4z"/></symbol>
+  <symbol id="w-zip" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M12 3v3m0 2v2m0 2v2" stroke-linecap="round"/><rect x="10.3" y="14" width="3.4" height="4" rx="1"/></g></symbol>
+  <symbol id="w-pages" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="8" y="3" width="12" height="15" rx="2"/><path d="M5 7v12.5A1.5 1.5 0 0 0 6.5 21H16"/></g></symbol>
+  <symbol id="w-stamp" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M9.5 13V9.5a2.5 2.5 0 1 1 5 0V13M4.5 13h15v4h-15zM6 20.5h12" stroke-linecap="round"/></g></symbol>
+  <symbol id="w-compress" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v6m0 0-3-3m3 3 3-3M12 21v-6m0 0-3 3m3-3 3 3M4 12h16"/></symbol>
+  <symbol id="w-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5m0-5-5 5"/></g></symbol>
+  <symbol id="w-unzip" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5z"/><path d="M12 11v6m-2.5-2.5L12 17l2.5-2.5"/></g></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.6A7.6 7.6 0 0 0 7 6.6l-2.3-1-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.6h4l.5-2.6a7.6 7.6 0 0 0 2.6-1.5l2.3 1 2-3.4z" stroke-linejoin="round"/></g></symbol>
+</svg>
+
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <nav class="nav-links" id="navlinks" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#try">Try it</a>
+      <a href="#video">Video editor</a>
+      <a href="#pdf">PDF</a>
+      <a href="#formats">Formats</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark">
+      <svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg>
+    </button>
+    <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navlinks"><svg><use href="#i-menu"/></svg></button>
+    <a class="btn btn-primary btn-sm" data-dl href="#download"><svg><use href="#i-down"/></svg>Download<span class="long">&nbsp;free</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ───────── hero ───────── -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <a class="pill" href="changelog.html"><b>New</b><span><span data-v-text>Version 1.9.0</span>: a timeline video editor &amp; pro PDF tools →</span></a>
+    <div class="hero-title">
+      <h1><span class="w">Drag.</span> <span class="w">Tap</span> <span class="w grad-text">Shift.</span> <span class="w">Done.</span></h1>
+      <span class="sticker s1" aria-hidden="true">100% offline 🔌</span>
+      <span class="sticker s2" aria-hidden="true">no uploads 🔒</span>
+      <span class="sticker s3" aria-hidden="true">free ✌️</span>
+    </div>
+    <p class="lead">Start dragging any file, tap <kbd>Shift</kbd>, and a wheel of formats and tools opens right under your cursor. Drop it on one. Photos, PDFs, video, audio and documents are converted or edited on your own PC, and nothing is uploaded.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary magnet" data-dl href="#download">
+        <svg><use href="#i-win"/></svg>
+        <span class="stack">Download for Windows<small><span data-v-text>Version 1.9.0</span> · <span data-size>116 MB</span> · Free</small></span>
+      </a>
+      <a class="btn btn-ghost" href="#flows"><svg><use href="#i-play"/></svg>Watch it work</a>
+    </div>
+    <p class="hero-meta"><span>Windows 10 &amp; 11, 64-bit</span><span>Works offline</span><span>No account</span></p>
+
+    <div class="stage" id="stage">
+      <div class="window" id="heroWindow" data-title="Convert a photo · real recording">
+        <video id="heroVideo" src="media/flow-convert.mp4" poster="media/flow-convert.jpg" muted loop playsinline autoplay preload="auto"
+               aria-label="Screen recording: a photo is dragged out of File Explorer, Shift is tapped, the FileSmith wheel opens and the photo is dropped on WEBP"></video>
+      </div>
+      <span class="sticker round s4" aria-hidden="true">real screen recording 🎥</span>
+      <span class="sticker s5" aria-hidden="true">no mock-ups</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── ticker ───────── -->
+<div class="ticker" aria-label="Formats FileSmith works with">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- ───────── how ───────── -->
+<section id="how">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--lime)">How it works</span>
+      <h2>Three moves. <span class="grad-text" style="--c:var(--yellow)">Zero menus.</span></h2>
+      <p class="lead">No app to open, no menus to hunt through, no upload page. FileSmith lives in the tray and appears exactly when you're holding a file.</p>
+    </div>
+    <div class="steps">
+      <article class="card glow step reveal">
+        <span class="num">1</span>
+        <h3>Start dragging a file</h3>
+        <p>From File Explorer, your desktop, anywhere. One file or a whole selection.</p>
+        <div class="shot"><video data-src="media/flow-convert.mp4" data-from="0.4" data-to="2.0" muted playsinline preload="none" poster="media/flow-convert.jpg" aria-hidden="true"></video></div>
+      </article>
+      <article class="card glow step reveal d1">
+        <span class="num">2</span>
+        <h3>Tap <kbd>Shift</kbd></h3>
+        <p>Keep holding the file. The wheel opens under your cursor with only what fits that file.</p>
+        <div class="shot"><video style="object-position:72% 50%" data-src="media/flow-removebg.mp4" data-from="1.9" data-to="4.3" muted playsinline preload="none" poster="media/flow-removebg.jpg" aria-hidden="true"></video></div>
+      </article>
+      <article class="card glow step reveal d2">
+        <span class="num">3</span>
+        <h3>Drop it on a segment</h3>
+        <p>It's done in place, saved next to the original. Click the message to see it in Explorer.</p>
+        <div class="shot"><video style="object-position:72% 50%" data-src="media/flow-removebg.mp4" data-from="5.6" data-to="10.6" muted playsinline preload="none" poster="media/flow-removebg.jpg" aria-hidden="true"></video></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── playground ───────── -->
+<section id="try">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--pink)">Try the wheel</span>
+      <h2>Go on, <span class="grad-text" style="--c:var(--lime)">spin it.</span></h2>
+      <p class="lead">This is the wheel, working in your browser. Pick a kind of file, hover the segments, and hold the centre to flip to Tools. You can also drop one of your own files on it.</p>
+    </div>
+    <div class="playground">
+      <div class="pg-side reveal">
+        <div class="pg-label">File</div>
+        <div class="seg-ctl" id="kinds" role="group" aria-label="Kind of file"></div>
+        <div class="pg-label">Glass looks</div>
+        <div class="seg-ctl glass-looks" id="glassLooks" role="group" aria-label="Glass looks"></div>
+        <div class="pg-label">Colour looks</div>
+        <div class="swatches" id="swatches" role="group" aria-label="Colour looks"></div>
+        <ul class="hint-list">
+          <li><span>Hover a segment to pick it, click to "drop" there.</span></li>
+          <li><span>Rest on the centre (or click it) to switch Convert ↔ Tools.</span></li>
+          <li><span>Segments with <b>•••</b> fan out into more tools.</span></li>
+          <li><span>Drop a file from your PC onto the wheel: it opens for that kind of file. Only the file name is read. Nothing is uploaded.</span></li>
+        </ul>
+      </div>
+      <div class="pg-stage reveal d1" id="pgStage">
+        <canvas id="wheelCanvas" tabindex="0" role="application" aria-label="The FileSmith wheel. Hover or use the arrow keys to pick a segment, Enter to choose it, Space to switch between Convert and Tools."></canvas>
+        <div class="drop-note">Drop a file here · nothing leaves your device</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── flows ───────── -->
+<section id="flows">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--lilac)">Real recordings</span>
+      <h2>Watch it <span class="grad-text" style="--c:var(--yellow)">actually work.</span></h2>
+      <p class="lead">Recorded on a Windows 11 desktop: a real drag out of File Explorer, a real tap of Shift, real files saved. Nothing here is a mock-up.</p>
+    </div>
+    <div class="flows reveal">
+      <div class="tabs" role="tablist" id="flowTabs">
+        <button class="tab" role="tab" aria-selected="true" data-flow="convert">Convert a photo<span class="prog"></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-flow="removebg">Remove a background<span class="prog"></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-flow="pdf">Rearrange a PDF<span class="prog"></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-flow="video">Edit video<span class="prog"></span></button>
+      </div>
+      <div class="window flat reveal" data-title="FileSmith · recorded on Windows 11">
+        <video id="flowVideo" muted playsinline preload="none" poster="media/flow-convert.jpg" aria-label="Screen recording of FileSmith"></video>
+      </div>
+      <p class="flow-caption" id="flowCaption" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── video editor ───────── -->
+<section id="video">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--orange)">Video editor</span>
+      <h2>A real timeline. <span class="grad-text" style="--c:var(--pink)">Not a trimmer.</span></h2>
+      <p class="lead">Every clip, picture and sound on one timeline, with playback in sync. It's as capable as the editors you know, without the clutter. Opens from <b>Edit video</b> or <b>Join clips</b> on the wheel.</p>
+    </div>
+    <div class="editor-shot reveal">
+      <div class="callouts">
+        <div class="shot-frame"><img src="img/e-video.webp" width="1600" height="949" loading="lazy" alt="The FileSmith video editor: a preview of a hiking clip, a project inspector, and a timeline with three video clips with thumbnails, their sound as a green waveform and a music track as a purple waveform"></div>
+        <span class="callout" style="left:30%;top:36%"><i>1</i>Live preview with sound</span>
+        <span class="callout" style="left:79%;top:30%"><i>2</i>Inspector: only what fits</span>
+        <span class="callout" style="left:33%;top:77%"><i>3</i>Clips with thumbnails</span>
+        <span class="callout" style="left:63%;top:91%"><i>4</i>Music as a waveform</span>
+        <span class="callout" style="left:83%;top:9%"><i>5</i>Video, GIF or frame</span>
+      </div>
+      <ul class="legend"><li>1 · Live preview with sound</li><li>2 · Inspector: only what fits</li><li>3 · Clips with thumbnails</li><li>4 · Music as a waveform</li><li>5 · Export a video, a GIF or a frame</li></ul>
+    </div>
+    <ul class="feat-grid">
+      <li class="card glow reveal"><span class="ic"><svg><use href="#i-film"/></svg></span><b>Clips side by side</b><span>Drag to move, drag the edges to trim, <kbd>S</kbd> splits at the playhead, <kbd>Del</kbd> deletes and closes the gap.</span></li>
+      <li class="card glow reveal d1"><span class="ic"><svg><use href="#i-wave"/></svg></span><b>Sound you can see</b><span>Each clip's audio as a waveform, plus voice and music tracks you can place anywhere in time.</span></li>
+      <li class="card glow reveal d2"><span class="ic"><svg><use href="#i-spark"/></svg></span><b>Speed, crop, fades</b><span>0.25×–4× with the pitch kept, volume to 200%, fades, crop shape, rotate and flip. Shapes: 16:9, 9:16, 1:1, 4:5.</span></li>
+      <li class="card glow reveal"><span class="ic"><svg><use href="#i-gif"/></svg></span><b>Export a video, a GIF or a frame</b><span>High, Standard or Small file MP4, a GIF with a live size estimate, or a PNG of the frame. The whole edit or the range you mark with <kbd>I</kbd> and <kbd>O</kbd>.</span></li>
+      <li class="card glow reveal d1"><span class="ic"><svg><use href="#i-play"/></svg></span><b>Smooth on big files</b><span>Stays smooth on long, heavy videos, like an hour of 1080p60. Paused, the preview shows the exact frame, crop and fades included.</span></li>
+      <li class="card glow reveal d2"><span class="ic"><svg><use href="#i-undo"/></svg></span><b>Undo everything</b><span><kbd>Ctrl</kbd>+<kbd>Z</kbd> and <kbd>Ctrl</kbd>+<kbd>Y</kbd> for every change. Closing with unexported work asks first.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ───────── pdf ───────── -->
+<section id="pdf">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--mint)">PDF tools</span>
+      <h2>Every PDF chore, <span class="grad-text" style="--c:var(--lilac)">one drop away.</span></h2>
+      <p class="lead">Split, rearrange, merge, number, watermark, lock and unlock, or turn a PDF into a real Word document. Each tool shows you the actual pages before it saves.</p>
+    </div>
+    <div class="pdf-tabs reveal" role="tablist" aria-label="PDF tools" id="pdfTabs">
+      <button class="pdf-tab" role="tab" aria-selected="true" style="--c:var(--lime)" data-tool="split" data-img="img/e-split.webp" data-w="947" data-h="1032" data-alt="The Split PDF window: page thumbnails tinted by the PDF each page goes into, with modes Each page, Every N, Equal parts, Custom and Pick pages" data-line="Each page, every N pages, equal parts, your own cuts, picked pages, or one PDF per chapter.">Split</button>
+      <button class="pdf-tab" role="tab" aria-selected="false" style="--c:var(--yellow)" data-tool="organize" data-img="img/e-organize.webp" data-w="1075" data-h="831" data-alt="The Organize pages window with eight page thumbnails and buttons to rotate, delete, undo and add files" data-line="Drag pages into order, rotate, delete and undo. Drop several PDFs and images to merge them into one.">Organize &amp; merge</button>
+      <button class="pdf-tab" role="tab" aria-selected="false" style="--c:var(--lilac)" data-tool="numbers" data-img="img/e-numbers.webp" data-w="1020" data-h="916" data-alt="The Page numbers window with a live preview of the page and choices for position, style, starting number and size" data-line="Pick the spot on a little page, a style like “Page 1 of 12”, where to start, and whether to skip the cover.">Page numbers</button>
+      <button class="pdf-tab" role="tab" aria-selected="false" style="--c:var(--pink)" data-tool="watermark" data-img="img/e-watermark.webp" data-w="932" data-h="916" data-alt="The Watermark window showing CONFIDENTIAL placed diagonally across the real page, with layout, strength and colour controls" data-line="Text, a logo or both, diagonal or in a corner, at the strength and colour you pick, previewed on the real page.">Watermark</button>
+      <button class="pdf-tab" role="tab" aria-selected="false" style="--c:var(--mint)" data-tool="password" data-img="img/e-protect.webp" data-w="787" data-h="489" data-alt="The Add a password window with two password fields" data-line="Lock a copy with AES-256 so it needs your password to open, or remove the password from a PDF you can open.">Passwords</button>
+    </div>
+    <div class="pdf-stage reveal" id="pdfStage" style="--c:var(--lime)">
+      <div class="pdf-win"><span class="pdf-shot"><img id="pdfImg" src="img/e-split.webp" width="947" height="1032" loading="lazy" alt="The Split PDF window: page thumbnails tinted by the PDF each page goes into, with modes Each page, Every N, Equal parts, Custom and Pick pages"></span></div>
+      <div class="pdf-result" aria-live="polite">
+        <span class="pdf-you">You get</span>
+        <div class="pdf-panel" data-for="split">
+          <h3>8 PDFs, one per page</h3>
+          <div class="pdf-files"><figure class="pdf-file" style="--k:0"><img src="img/pdf-p1.webp" width="220" height="312" alt=""><figcaption>Page 1.pdf</figcaption></figure><figure class="pdf-file" style="--k:1"><img src="img/pdf-p2.webp" width="220" height="312" alt=""><figcaption>Page 2.pdf</figcaption></figure><figure class="pdf-file" style="--k:2"><img src="img/pdf-p3.webp" width="220" height="312" alt=""><figcaption>Page 3.pdf</figcaption></figure><figure class="pdf-file" style="--k:3"><img src="img/pdf-p4.webp" width="220" height="312" alt=""><figcaption>Page 4.pdf</figcaption></figure><figure class="pdf-file" style="--k:4"><img src="img/pdf-p5.webp" width="220" height="312" alt=""><figcaption>Page 5.pdf</figcaption></figure><figure class="pdf-file" style="--k:5"><img src="img/pdf-p6.webp" width="220" height="312" alt=""><figcaption>Page 6.pdf</figcaption></figure><figure class="pdf-file" style="--k:6"><img src="img/pdf-p7.webp" width="220" height="312" alt=""><figcaption>Page 7.pdf</figcaption></figure><figure class="pdf-file" style="--k:7"><img src="img/pdf-p8.webp" width="220" height="312" alt=""><figcaption>Page 8.pdf</figcaption></figure></div>
+          <p class="pdf-note">In an “Alps Travel Guide (split)” folder, next to the original.</p>
+        </div>
+        <div class="pdf-panel" data-for="organize" hidden>
+          <h3>Pages in the order you want</h3>
+          <div class="og-strip" id="ogStrip"><img class="og-page" data-p="0" src="img/pdf-p1.webp" width="220" height="312" alt="Page 1"><img class="og-page" data-p="1" src="img/pdf-p2.webp" width="220" height="312" alt="Page 2"><img class="og-page" data-p="2" src="img/pdf-p3.webp" width="220" height="312" alt="Page 3"><img class="og-page" data-p="3" src="img/pdf-p4.webp" width="220" height="312" alt="Page 4"><img class="og-page" data-p="4" src="img/pdf-p5.webp" width="220" height="312" alt="Page 5"><img class="og-page" data-p="5" src="img/pdf-p6.webp" width="220" height="312" alt="Page 6"><img class="og-page" data-p="6" src="img/pdf-p7.webp" width="220" height="312" alt="Page 7"><img class="og-page" data-p="7" src="img/pdf-p8.webp" width="220" height="312" alt="Page 8"></div>
+          <p class="pdf-note">Saved as “Alps Travel Guide organized.pdf”. Your original stays as it was.</p>
+        </div>
+        <div class="pdf-panel" data-for="numbers" hidden>
+          <h3>“Page 2 of 8” on every page</h3>
+          <div class="compare page-crop" tabindex="0" role="slider" aria-label="Before and after page numbers: drag to compare" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <img class="after" src="img/pdf-num-after.webp" width="1296" height="471" loading="lazy" alt="After: the page footer reads Page 2 of 8">
+            <img class="before" src="img/pdf-num-before.webp" width="1296" height="471" loading="lazy" alt="Before: the same page without a page number">
+            <span class="lab l">Before</span><span class="lab r">After</span>
+            <div class="handle"><b><svg><use href="#i-arrows"/></svg></b></div>
+          </div>
+          <p class="pdf-note">Real output from FileSmith, on page 2 of the travel guide.</p>
+        </div>
+        <div class="pdf-panel" data-for="watermark" hidden>
+          <h3>Marked, on every page</h3>
+          <div class="compare page-full" tabindex="0" role="slider" aria-label="Before and after the watermark: drag to compare" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <img class="after" src="img/pdf-wm-after.webp" width="900" height="1274" loading="lazy" alt="After: CONFIDENTIAL runs diagonally across the page in see-through pink">
+            <img class="before" src="img/pdf-wm-before.webp" width="900" height="1274" loading="lazy" alt="Before: the page without a watermark">
+            <span class="lab l">Before</span><span class="lab r">After</span>
+            <div class="handle"><b><svg><use href="#i-arrows"/></svg></b></div>
+          </div>
+          <p class="pdf-note">Real output from FileSmith. The text stays selectable underneath.</p>
+        </div>
+        <div class="pdf-panel" data-for="password" hidden>
+          <h3>A copy only you can open</h3>
+          <div class="lock-card">
+            <img src="img/pdf-p1.webp" width="220" height="312" alt="">
+            <span class="padlock" aria-hidden="true"><i class="shackle"></i><i class="body"></i></span>
+          </div>
+          <p class="pdf-note">“Alps Travel Guide protected.pdf”, AES-256. FileSmith can't recover a forgotten password, so keep it safe.</p>
+        </div>
+      </div>
+    </div>
+    <p class="pdf-line" id="pdfLine">Each page, every N pages, equal parts, your own cuts, picked pages, or one PDF per chapter.</p>
+    <div class="bento">
+      <article class="card glow span-3 reveal" style="--c:var(--lilac)">
+        <span class="tag">PDF → Word</span>
+        <h3>A real Word document, not a picture of one</h3>
+        <p>FileSmith's own engine rebuilds the page offline: fonts, sizes, bold and colour; columns and headings; bulleted and numbered lists; headers and footers with page numbers; tables with merged cells, borders and shading; links; and every picture at its original quality.</p>
+      </article>
+      <article class="card glow span-3 reveal d1" style="--c:var(--mint)">
+        <span class="tag">DOCX + OCR</span>
+        <h3>Scans become editable too</h3>
+        <p>Hover DOCX to fan out <b>DOCX + OCR</b>. It reads the text of scanned pages, tables and bullets included, entirely on your PC. Busy scans like ID cards are fine.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── remove bg ───────── -->
+<section id="removebg">
+  <div class="wrap">
+    <div class="split rev">
+      <div class="reveal">
+        <span class="eyebrow" style="--c:var(--yellow)">Remove BG</span>
+        <h2>Cut-outs in <span class="grad-text" style="--c:var(--lime)">one drop.</span></h2>
+        <p class="lead">FileSmith picks the right method on its own. Photos of people, products and pets go through a small AI model that runs on your PC. Signatures, stamps and documents get their ink lifted off the paper cleanly.</p>
+        <div class="compare-tabs seg-ctl" role="group" aria-label="Example">
+          <button type="button" aria-pressed="true" data-before="img/rbg-dog-before.webp" data-after="img/rbg-dog-after.webp">Pet photo</button>
+          <button type="button" aria-pressed="false" data-before="img/rbg-phones-before.webp" data-after="img/rbg-phones-after.webp">Product shot</button>
+        </div>
+        <ul class="feat-list">
+          <li><span class="ic"><svg><use href="#i-shield"/></svg></span><div><b>Offline AI</b><span>The model ships with the app. No credits, no upload, no waiting in a queue.</span></div></li>
+          <li><span class="ic"><svg><use href="#i-drop"/></svg></span><div><b>Ink extraction for paper</b><span>No paper left inside the letters, phone-photo shadows removed, one clean colour per pen, and stamps keep their colours.</span></div></li>
+        </ul>
+      </div>
+      <div class="reveal d1">
+        <div class="compare" id="compare" tabindex="0" role="slider" aria-label="Before and after: drag to compare" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+          <img class="after" id="cmpAfter" src="img/rbg-dog-after.webp" width="1400" height="933" loading="lazy" alt="After: the golden retriever cut out on a transparent background">
+          <img class="before" id="cmpBefore" src="img/rbg-dog-before.webp" width="1400" height="933" loading="lazy" alt="Before: a golden retriever photographed outdoors in front of trees">
+          <span class="lab l">Before</span><span class="lab r">After</span>
+          <div class="handle"><b><svg><use href="#i-arrows"/></svg></b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── images ───────── -->
+<section id="images">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--pink)">Images</span>
+      <h2>The photo editor <span class="grad-text" style="--c:var(--orange)">you'll actually use.</span></h2>
+      <p class="lead">The quick fixes, done properly: exact sizes, target file sizes, clean crops and a polished background.</p>
+    </div>
+    <div class="bento">
+      <article class="card glow span-2 half reveal" style="--c:var(--lime)">
+        <span class="tag">Resize</span><h3>Hit an exact size, or a file size</h3>
+        <p>Pixels, centimetres or inches, a compression level, or "under 200 KB", with a live before/after.</p>
+        <div class="media"><img src="img/e-resize.webp" width="807" height="1042" loading="lazy" alt="The Resize Image window with a before and after split view of a lake photo, and size, compression and target size controls"></div>
+      </article>
+      <article class="card glow span-2 half reveal d1" style="--c:var(--pink)">
+        <span class="tag">Crop</span><h3>Every shape you need</h3>
+        <p>Free, 1:1, 16:9, 9:16, 4:3, 3:4 or the original, plus exact pixel sizes.</p>
+        <div class="media"><img src="img/e-crop.webp" width="817" height="889" loading="lazy" alt="The Crop Image window around a photo of Lago di Braies with aspect ratio choices"></div>
+      </article>
+      <article class="card glow span-2 reveal d2" style="--c:var(--lilac)">
+        <span class="tag">Add BG</span><h3>Cut-out to product shot</h3>
+        <p>Put a cut-out on a colour, gradient or picture, with padding, rounded corners and a soft shadow.</p>
+        <div class="media"><img src="img/e-addbg.webp" width="785" height="924" loading="lazy" alt="The Add BG window placing cut-out headphones on a grey background with padding, corners and shadow controls"></div>
+      </article>
+      <article class="card glow span-6 reveal" style="--c:var(--orange)">
+        <span class="tag">And the rest</span>
+        <h3>Compress · Rotate · Strip info · Merge to PDF · HEIC &amp; AVIF</h3>
+        <p>Shrink photos for email, turn them the right way up, remove location and camera data before you share, or combine a stack of images into one PDF. iPhone HEIC photos and modern AVIF images open and convert like any other.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── formats ───────── -->
+<section id="formats">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--lime)">Everything it converts</span>
+      <h2>Ask it <span class="grad-text" style="--c:var(--pink)">anything.</span></h2>
+      <p class="lead">Type a question like "heic to jpg" or "pdf to word", or just a format, to see what FileSmith can do with it.</p>
+    </div>
+    <div class="finder reveal">
+      <svg><use href="#i-search"/></svg>
+      <label class="sr" for="finder">Search formats</label>
+      <input id="finder" type="search" placeholder="Try “heic to jpg”, “mp4 to gif” or “pdf”" autocomplete="off" spellcheck="false">
+    </div>
+    <p class="answer" id="answer" aria-live="polite"></p>
+    <div class="matrix" id="matrix"></div>
+  </div>
+</section>
+
+<!-- ───────── looks ───────── -->
+<section id="looks">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--lilac)">Make it yours</span>
+      <h2>Seventeen looks. <span class="grad-text" style="--c:var(--yellow)">Or your own.</span></h2>
+      <p class="lead">Twelve colour themes, five real frosted-glass looks that blur whatever is behind the wheel, and a custom palette with your own five colours. Then pick the font, the text size, the wheel size (60–150%) and how snappy it feels.</p>
+    </div>
+    <div class="looks" id="lookGrid"></div>
+    <p class="center muted reveal" style="margin-top:28px">The first five are real frosted glass: the wheel blurs and colour-boosts whatever is behind it. Every picture here is the real app.</p>
+  </div>
+</section>
+
+<!-- ───────── privacy & speed ───────── -->
+<section id="privacy">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--mint)">Private by design</span>
+      <h2>Your files <span class="grad-text" style="--c:var(--lime)">never leave.</span></h2>
+      <p class="lead">There's no server to send them to. Every conversion, every edit and both AI models run on your own PC, and they work with the internet unplugged.</p>
+    </div>
+    <div class="stats">
+      <div class="card glow stat reveal"><div class="big" data-count="0">0</div><p>files uploaded. The only thing FileSmith ever downloads is the note saying which version is newest.</p></div>
+      <div class="card glow stat reveal d1"><div class="big" data-count="0">0</div><p>accounts, sign-ins or trackers.</p></div>
+      <div class="card glow stat reveal d2"><div class="big"><span data-count="30">30</span><small style="font-size:.4em"> ms</small></div><p>about how long the wheel takes to appear after you tap Shift.</p></div>
+      <div class="card glow stat reveal d3"><div class="big"><span data-count="60">60</span><small style="font-size:.4em"> fps</small></div><p>animation, drawn from a cache so your PC barely notices it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── settings ───────── -->
+<section id="settings">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow" style="--c:var(--orange)">Settings</span>
+        <h2>Quiet <span class="grad-text" style="--c:var(--lilac)">until you need it.</span></h2>
+        <p class="lead">FileSmith lives in the tray near the clock. Click the icon for Settings. Everything else happens on the wheel.</p>
+        <ul class="feat-list">
+          <li><span class="ic"><svg><use href="#i-gear"/></svg></span><div><b>Your trigger key</b><span>Shift, Ctrl or Alt, whichever doesn't clash with your other apps.</span></div></li>
+          <li><span class="ic"><svg><use href="#i-layers"/></svg></span><div><b>Where results go</b><span>Next to the original, or always into one folder you choose. Nothing is ever overwritten.</span></div></li>
+          <li><span class="ic"><svg><use href="#i-bolt"/></svg></span><div><b>Right-click too</b><span>Select files, then <b>Open with FileSmith</b>, and click a segment. On Windows 11 it's under "Show more options".</span></div></li>
+          <li><span class="ic"><svg><use href="#i-check"/></svg></span><div><b>Starts with Windows</b><span>Ready the moment you sign in, and quiet until you drag something.</span></div></li>
+        </ul>
+      </div>
+      <div class="reveal d1"><div class="shot-frame tilt" style="max-width:520px;margin:auto;background:#f2f2f5"><img src="img/e-settings.webp" width="800" height="848" loading="lazy" alt="FileSmith Settings: Enabled, trigger key Shift, Ctrl or Alt, animations, where to save files, JPG quality, start with Windows and the right-click menu"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── what's new ───────── -->
+<section id="new" style="padding-top:0">
+  <div class="wrap">
+    <article class="card news reveal">
+      <span class="eyebrow" style="--c:var(--lime)">What's new in <span data-v-text>version 1.9.0</span></span>
+      <ul id="notes">
+        <li>Timeline video editor: every clip on one timeline, playback with sound, voice and music tracks with waveforms, split, trim and drag, speed, crop, fades, and export as a video, a GIF or a frame.</li>
+        <li>Pro PDF tools: Organize pages, Merge, page numbers, watermark, and adding or removing a password.</li>
+        <li>Editor and tool windows show on the taskbar and in Alt+Tab.</li>
+      </ul>
+      <p style="margin:18px 0 0"><a href="changelog.html">Full changelog →</a></p>
+    </article>
+  </div>
+</section>
+
+<!-- ───────── download ───────── -->
+<section id="download">
+  <div class="wrap">
+    <div class="card dl reveal">
+      <img class="icon-big" src="img/icon-256.png" width="96" height="96" alt="">
+      <h2>Get FileSmith. <span class="grad-text">It's free.</span></h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">One small installer. No admin rights, no account, and installing a newer version over the old one keeps your settings.</p>
+      <div class="hero-cta" style="opacity:1;animation:none">
+        <a class="btn btn-primary magnet" data-dl href="#download">
+          <svg><use href="#i-win"/></svg>
+          <span class="stack">Download for Windows<small><span data-v-text>Version 1.9.0</span> · <span data-size>116 MB</span></small></span>
+        </a>
+      </div>
+      <div class="reqs">
+        <div class="req"><b>System</b>Windows 10 or 11, 64-bit</div>
+        <div class="req"><b>Space</b>About 360 MB installed</div>
+        <div class="req"><b>Installs to</b>Your user folder, no admin</div>
+        <div class="req"><b>Optional</b>Word / PowerPoint, used if present</div>
+      </div>
+      <div class="hash"><b>SHA-256</b><code id="sha">9248b2c87d19db0feaf6d5806fd0d1c2001275ac0e7af374cadb0f1b89307b05</code><button class="copy" id="copySha" type="button">Copy</button></div>
+      <p class="note">FileSmith isn't code-signed yet, so the first time you run the installer Windows may say <i>"Windows protected your PC"</i>. Click <b>More info → Run anyway</b>. The SHA-256 above lets you check that the file you downloaded is the one published here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── faq ───────── -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="eyebrow" style="--c:var(--pink)">Questions</span>
+      <h2>Good to know</h2>
+    </div>
+    <div class="faq">
+      <details class="reveal"><summary>Does FileSmith upload my files?</summary><p>No. Everything happens on your PC, including Remove BG and the OCR that reads scanned pages. The only time FileSmith goes online is a once-a-day check for a newer version, which sends nothing about you or your files (and you can turn it off).</p></details>
+      <details class="reveal"><summary>Will it change or overwrite my original file?</summary><p>Never. Results are saved as new files next to the original (or in a folder you choose), with clear names like <code>Report organized.pdf</code> or <code>Photo No BG.png</code>. If a name is taken, a new one is picked.</p></details>
+      <details class="reveal"><summary>What if I use Shift for something else while dragging?</summary><p>Change the trigger to Ctrl or Alt in Settings. You can also skip dragging entirely: right-click files and choose <b>Open with FileSmith</b>.</p></details>
+      <details class="reveal"><summary>Why does Windows say "Windows protected your PC"?</summary><p>The installer isn't code-signed yet, so Windows doesn't recognise the publisher. Click <b>More info → Run anyway</b>. You can compare the file's SHA-256 with the one on this page.</p></details>
+      <details class="reveal"><summary>Do I need admin rights, Word or PowerPoint?</summary><p>No admin rights: FileSmith installs into your own user folder. Word and PowerPoint aren't needed. If they're installed, FileSmith uses them for the most faithful DOCX → PDF and slides → PDF. Otherwise it uses LibreOffice if you have it, or its own renderer.</p></details>
+      <details class="reveal"><summary>How do I update?</summary><p>You don't have to: FileSmith checks once a day, shows what's new, and installs with one click. It never interrupts a conversion or an export, and your settings, startup entry and right-click entry stay as they are. You can also choose <b>Check for updates…</b> in the tray menu, or turn on automatic installs in Settings. (Versions before 1.9.0 update by running the newest installer from this page.)</p></details>
+      <details class="reveal"><summary>How do I uninstall it?</summary><p>Settings → Apps → FileSmith → Uninstall. That removes the app, its startup entry and its right-click entry.</p></details>
+      <details class="reveal"><summary>Does it work on a Mac or on phones?</summary><p>FileSmith is made for Windows 10 and 11 on 64-bit PCs.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top"><img src="img/icon-256.png" alt="" width="28" height="28">FileSmith</a>
+    <nav aria-label="Footer">
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="license.html">License</a>
+      <a href="license.html#third-party">Third-party notices</a>
+    </nav>
+    <span>© 2026 Ronit Chintrate</span>
+  </div>
+</footer>
+
+<script src="js/wheel.js?v=23" defer></script>
+<script src="js/site.js?v=23" defer></script>
+</body>
+</html>
